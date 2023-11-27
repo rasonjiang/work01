@@ -50,12 +50,4 @@ public class DistributedSort {
         return data;
     }
 
-    private static JavaRDD<Integer> selectionSort(JavaRDD<Integer> data) {
-        return data.mapPartitions(iter -> {
-            List<Integer> list = new ArrayList<>();
-            iter.forEachRemaining(list::add);
-            Collections.sort(list);
-            return list.iterator();
-        }, true);
-    }
 }
