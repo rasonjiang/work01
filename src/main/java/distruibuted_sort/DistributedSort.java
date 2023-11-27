@@ -28,8 +28,8 @@ public class DistributedSort {
         // 进行排序
         JavaRDD<Integer> sortedData ;
         //Spark API：sortBy排序
-        sortedData = data.sortBy(x -> x, true, dataSize);
-//        sortedData = mergeSort(data);
+//        sortedData = data.sortBy(x -> x, true, dataSize);
+        sortedData = MergeSort.mergeSort(data);
 
         // 将结果收集到本地
         System.out.println(sortedData.take(10));  // 打印前10个元素
