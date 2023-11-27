@@ -8,15 +8,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Sort {
+public class DistributedSort {
     public static void main(String[] args) {
-        // 创建Spark配置和SparkContext
-        SparkConf conf = new SparkConf().setAppName("DistributedSort");
+        // 创建SparkConf对象
+        SparkConf conf = new SparkConf().setAppName("DistributedSort").setMaster("local");
+        //创建JavaSparkContext对象
         JavaSparkContext sc = new JavaSparkContext(conf);
+
+/*
+        //读取数据（文本）
+        JavaRDD<String> lines = sc.textFile("input.txt");
+*/
 
         // 生成随机数据
         int dataSize = 1000000;
-        JavaRDD<Integer> data = (JavaRDD<Integer>) sc.parallelize(createData(dataSize));
+        JavaRDD<Integer> data;
+        data = (JavaRDD<Integer>) sc.parallelize(createData(dataSize));
 
         // 进行排序
         JavaRDD<Integer> sortedData = data.sortBy(x -> x, true, dataSize);
@@ -25,10 +32,10 @@ public class Sort {
         System.out.println(sortedData.take(10));  // 打印前10个元素
 
         // 关闭SparkContext
-        sc.stop();
+        sc.close();
     }
 
-    private static Iterable<Integer> createData(int dataSize) {
+    private static List<Integer> createData(int dataSize) {
         // 生成随机数据的逻辑
         // 这里可以根据实际需求生成你的随机数据
         // 这里简单地生成一组升序整数
