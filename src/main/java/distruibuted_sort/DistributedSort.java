@@ -10,17 +10,17 @@ import java.util.List;
 
 public class DistributedSort {
     public static void main(String[] args) {
-        //创建SparkConf对象
+        //  创建SparkConf对象
         SparkConf conf = new SparkConf().setAppName("DistributedSort").setMaster("local");
-        //创建JavaSparkContext对象
+        //  创建JavaSparkContext对象
         JavaSparkContext sc = new JavaSparkContext(conf);
 
 /*
-        //读取数据（文本）
+        //  读取数据（文本）
         JavaRDD<String> lines = sc.textFile("input.txt");
 */
 
-        //生成模拟随机数据
+        //  生成模拟随机数据
         int dataSize = 1000;
         JavaRDD<Integer> data;
         data = (JavaRDD<Integer>) sc.parallelize(createData(dataSize));
@@ -41,7 +41,7 @@ public class DistributedSort {
         sortedData = ShellSort.shellSort(data);
 
 
-        // 将结果收集到本地
+        // 输出结果
         System.out.println(sortedData.take(10));  // 打印前10个元素
 
         // 关闭SparkContext
@@ -49,7 +49,7 @@ public class DistributedSort {
     }
 
     private static List<Integer> createData(int dataSize) {
-        // 生成随机数据的逻辑
+        // 生成随机数据
         List<Integer> data = new ArrayList<>();
         for (int i = 1; i <= dataSize; i++) {
             data.add(i);
