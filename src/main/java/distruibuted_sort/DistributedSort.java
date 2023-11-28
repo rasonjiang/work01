@@ -27,9 +27,19 @@ public class DistributedSort {
 
         // 进行排序
         JavaRDD<Integer> sortedData ;
-        //Spark API：sortBy排序
+//        Spark API：sortBy排序
 //        sortedData = data.sortBy(x -> x, true, dataSize);
-        sortedData = MergeSort.mergeSort(data);
+//        归并排序
+//        sortedData = MergeSort.mergeSort(data);
+//        选择排序
+//        sortedData = SelectionSort.selectionSort(data);
+//        快速排序
+//        sortedData = QuickSort.quickSort(data);
+//        基数排序
+//        sortedData = RadixSort.radixSort(data);
+//        希尔排序
+        sortedData = ShellSort.shellSort(data);
+
 
         // 将结果收集到本地
         System.out.println(sortedData.take(10));  // 打印前10个元素
